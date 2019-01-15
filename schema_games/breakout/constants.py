@@ -4,6 +4,7 @@ the game engine was built assuming these values to be immutable). Some of the
 remaining constants may be changed with caution. Proceed at your own risk.
 """
 
+from builtins import range
 import numpy as np
 
 

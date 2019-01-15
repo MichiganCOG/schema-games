@@ -1,3 +1,4 @@
+from __future__ import print_function
 import argparse
 import numpy as np
 from collections import defaultdict
@@ -32,10 +33,10 @@ def play_game(environment_class,
     fps : int
         Frame rate per second at which to display the game.
     """
-    print blue("-" * 80)
-    print blue("Starting interactive game. "
-               "Press <ESC> at any moment to terminate.")
-    print blue("-" * 80)
+    print(blue("-" * 80))
+    print(blue("Starting interactive game. "
+               "Press <ESC> at any moment to terminate."))
+    print(blue("-" * 80))
 
     env_args = {
         'return_state_as_image': True,

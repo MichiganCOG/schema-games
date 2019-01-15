@@ -1,3 +1,6 @@
+from builtins import map
+from builtins import zip
+from builtins import range
 import numpy as np
 import matplotlib as mpl
 
@@ -12,7 +15,7 @@ def blockedrange(total_size, num_blocks):
 
     for k in range(num_blocks):
         interval = np.s_[int(round(div * k)):int(round(div * (k+1)))]
-        partition += [range(total_size)[interval]]
+        partition += [list(range(total_size))[interval]]
 
     partition = sorted(partition, key=len)
     partition = [[j] * len(block) for j, block in enumerate(partition)]
@@ -28,11 +31,11 @@ def shape_to_nzis(shape):
     """
     Convert a shape tuple (int, int) to NZIs.
     """
-    return np.array(zip(*np.ones(shape).nonzero()))
+    return np.array(list(zip(*np.ones(shape).nonzero())))
 
 
 def compute_shape_from_nzis(nzis):
-    return (max(zip(*nzis)[0]) + 1, max(zip(*nzis)[1]) + 1)
+    return (max(list(zip(*nzis))[0]) + 1, max(list(zip(*nzis))[1]) + 1)
 
 
 def compute_edge_nzis(nzis):
@@ -54,7 +57,7 @@ def compute_edge_nzis(nzis):
 
 
 def offset_nzis_from_position(nzis, pos):
-    return zip(*(nzis + np.array(pos)).T)
+    return list(zip(*(nzis + np.array(pos)).T))
 
 
 ###############################################################################

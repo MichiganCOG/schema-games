@@ -7,6 +7,8 @@ the game reinitialized). This is important to keep in mind if we care about
 randomizing some game properties across episodes or not.
 """
 
+from builtins import zip
+from builtins import range
 import numpy as np
 import random
 from itertools import product
@@ -130,8 +132,8 @@ class StandardBreakout(BreakoutEngine):
         """
         upper_row = (height - 2 - wall_thickness)
         lower_row = (upper_row - num_bricks_rows * brick_shape[1])
-        x = range(wall_thickness, width - wall_thickness, brick_shape[0])
-        y = range(lower_row, upper_row, brick_shape[1])
+        x = list(range(wall_thickness, width - wall_thickness, brick_shape[0]))
+        y = list(range(lower_row, upper_row, brick_shape[1]))
 
         return x, y
 
@@ -247,17 +249,17 @@ class MiddleWallBreakout(StandardBreakout):
         obstacle_y = min(brick_ys) - obstacle_shape[1]
 
         if self.wall_location == 'left':
-            obstacle_xs = range(self.wall_thickness,
+            obstacle_xs = list(range(self.wall_thickness,
                                 self.width // 2,
-                                obstacle_shape[0])
+                                obstacle_shape[0]))
         elif self.wall_location == 'right':
-            obstacle_xs = range(self.width // 2,
+            obstacle_xs = list(range(self.width // 2,
                                 self.width - self.wall_thickness,
-                                obstacle_shape[0])
+                                obstacle_shape[0]))
         elif self.wall_location == 'middle':
-            obstacle_xs = range(self.width // 4,
+            obstacle_xs = list(range(self.width // 4,
                                 self.width - self.width // 4,
-                                obstacle_shape[0])
+                                obstacle_shape[0]))
 
         for x in obstacle_xs:
             self.miscellaneous += [Wall((x, obstacle_y), shape=obstacle_shape)]
@@ -340,7 +342,7 @@ class RandomTargetBreakout(StandardBreakout):
         block_of_bricks = []
         color_index = self.brick_ys.index(block_y)
 
-        for i, j in product(xrange(m), xrange(n)):
+        for i, j in product(range(m), range(n)):
             color = CLASSIC_BRICK_COLORS[color_index + j]
             position = (block_x + i * self._brick_shape[0],
                         block_y + j * self._brick_shape[1])

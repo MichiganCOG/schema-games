@@ -1,3 +1,4 @@
+from builtins import object
 import copy
 import numpy as np
 import random
@@ -535,7 +536,7 @@ class Ball(MomentumObject):
         kwargs.setdefault('color', CLASSIC_BALL_COLOR)
 
         # Force ball shape since it's an immutable parameter
-        assert not {'shape', 'nzis'}.intersection(kwargs.keys())
+        assert not {'shape', 'nzis'}.intersection(list(kwargs.keys()))
         kwargs['shape'] = _BALL_SHAPE
         kwargs['nzis'] = None
         self.velocity_index = kwargs.pop('velocity_index', None)

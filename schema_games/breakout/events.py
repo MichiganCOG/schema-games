@@ -2,21 +2,22 @@
 Conditional events. At every step, the game engine checks which of all
 registered events happen and triggers the requisite consequences if applicable.
 """
+from builtins import object
 import random
 from abc import abstractmethod, ABCMeta
 
 from schema_games.breakout.constants import _MAX_SPEED
+from future.utils import with_metaclass
 
 
 ###############################################################################
 # API
 ###############################################################################
 
-class ConditionalEvent(object):
+class ConditionalEvent(with_metaclass(ABCMeta, object)):
     """
     Base class for conditional events.
     """
-    __metaclass__ = ABCMeta
 
     def __init__(self):
         pass
