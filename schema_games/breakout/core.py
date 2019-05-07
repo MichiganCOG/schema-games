@@ -270,7 +270,7 @@ class BreakoutEngine(gym.Env):
 
             self.viewer.imshow(self._get_image())
 
-    def _reset(self):
+    def reset(self):
         """
         Resets the bricks and ball to start a new game.
 
@@ -282,7 +282,7 @@ class BreakoutEngine(gym.Env):
             Contains useful information about the environment for debugging
             purposes only.
         """
-        for attribute, initial_value in self.reset_mutables.items():
+        for attribute, initial_value in list(self.reset_mutables.items()):
             setattr(self, attribute, initial_value)
 
         # Set up game objects (balls and paddle: position/velocity do not
@@ -327,7 +327,7 @@ class BreakoutEngine(gym.Env):
 
         return state
 
-    def _step(self, action):
+    def step(self, action):
         """
         Parameters
         ----------
@@ -517,8 +517,8 @@ class BreakoutEngine(gym.Env):
             return self._memoized_index_to_velocity[self.ball_movement_radius]
         except KeyError:
             unit_square = []
-            coordinates = range(-self.ball_movement_radius,
-                                 self.ball_movement_radius + 1)
+            coordinates = list(range(-self.ball_movement_radius,
+                                 self.ball_movement_radius + 1))
 
             for dx, dy in product(coordinates, coordinates):
                 if max(abs(dx), abs(dy)) != self.ball_movement_radius:
@@ -546,7 +546,7 @@ class BreakoutEngine(gym.Env):
         """
         velocity_to_index = {}
 
-        for k, v in self.index_to_velocity.items():
+        for k, v in list(self.index_to_velocity.items()):
             velocity_to_index[v] = k
 
         return velocity_to_index
@@ -1255,7 +1255,7 @@ class BreakoutEngine(gym.Env):
             Updated positions for each ball.
         """
         downward_velocities = {k: v
-                               for k, v in self.index_to_velocity.items()
+                               for k, v in list(self.index_to_velocity.items())
                                if v[1] < 0}
 
         for ball in self.balls:
