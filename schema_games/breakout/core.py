@@ -257,7 +257,7 @@ class BreakoutEngine(gym.Env):
     # API methods: Gym API methods + our `layout` method
     ###########################################################################
 
-    def _render(self, mode='human', close=False):
+    def render(self, mode='human', close=False):
         if self.reset_has_never_been_called:
             raise ResetHasNeverBeenCalledError
 
